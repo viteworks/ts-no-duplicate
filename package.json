@@ -12,8 +12,8 @@
     "build": "tsdown",
     "dev": "tsx src/index.ts",
     "lint": "eslint src --ext .ts",
-    "test": "vitest",
-    "test:run": "vitest run --coverage",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch",
     "update-deps": "pnpm update",
     "commit": "git-cz",
@@ -56,5 +56,10 @@
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.42.0",
     "vitest": "^3.2.4"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js}": [
+      "eslint --fix"
+    ]
   }
 }
