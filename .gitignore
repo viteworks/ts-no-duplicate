@@ -38,3 +38,5 @@ dist-ssr
 
 .kiro
 .gemini/
+
+coverage/
