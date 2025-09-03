@@ -4,7 +4,8 @@
     "commitMessage": "release: release v${version}",
     "tagName": "v${version}",
     "requireCleanWorkingDir": true,
-    "push": true
+    "push": true,
+    "commitArgs": ["--no-verify"]
   },
   "github": {
     "release": true,
@@ -27,7 +28,7 @@
     }
   },
   "hooks": {
-    "after:git:release": "✅ echo Successfully created git tag v${version}",
+    "after:git:release": "echo Successfully created git tag v${version}",
     "after:bump": "pnpm build",
     "after:release": "🎉 echo Successfully released v${version} to npm."
   }
