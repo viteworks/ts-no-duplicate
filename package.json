@@ -26,7 +26,7 @@
     "duplicate",
     "detection"
   ],
-  "author": "",
+  "author": "cola",
   "license": "MIT",
   "config": {
     "commitizen": {
@@ -63,5 +63,8 @@
     "src/**/*.{ts,tsx,js}": [
       "eslint --fix"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

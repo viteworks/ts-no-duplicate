@@ -1,20 +1,28 @@
 {
   "git": {
+    "requireBranch": "main",
     "commitMessage": "release: release v${version}",
     "tagName": "v${version}",
-    "requireCleanWorkingDir": false,
-    "requireUpstream": false
+    "requireCleanWorkingDir": true,
+    "push": true
   },
   "github": {
     "release": true,
     "releaseName": "Release v${version}",
+    "tokenRef": "GITHUB_TOKEN",
+    "draft": false,
     "autoGenerate": true
   },
   "npm": {
     "publish": true,
-    "publishPath": "dist"
+    "skipChecks": true,
+    "publishConfig": {
+      "registry": "https://registry.npmjs.org"
+    }
   },
   "hooks": {
-    "after:bump": "pnpm build"
+    "after:git:release": "✅ echo Successfully created git tag v${version}",
+    "after:bump": "pnpm build",
+    "after:release": "🎉 echo Successfully released v${version} to npm."
   }
 }
