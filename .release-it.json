@@ -1,0 +1,21 @@
+{
+  "git": {
+    "commitMessage": "release: release v${version}",
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": false,
+    "requireUpstream": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}",
+    "autoGenerate": true
+  },
+  "npm": {
+    "publish": true,
+    "publishPath": "dist"
+  },
+  "hooks": {
+    "before:init": ["pnpm lint", "pnpm test"],
+    "after:bump": "pnpm build"
+  }
+}
