@@ -310,3 +310,4 @@ MIT License
 - [ts-morph](https://github.com/dsherret/ts-morph) - TypeScript AST 操作
 - [commander](https://github.com/tj/commander.js) - 命令行工具
 - [chalk](https://github.com/chalk/chalk) - 终端颜色输出
+# 触发 patch 版本发布
