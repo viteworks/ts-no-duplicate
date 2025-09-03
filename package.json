@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "TypeScript cross-file duplicate name detection tool",
   "main": "dist/index.js",
+  "typing": "dist/index.ts",
   "type": "module",
   "bin": {
     "ts-no-duplicate": "dist/index.js"
