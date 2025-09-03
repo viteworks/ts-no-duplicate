@@ -81,4 +81,5 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           pnpm release-it ${{ needs.pre-check.outputs.version_type }} --ci 

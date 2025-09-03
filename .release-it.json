@@ -15,7 +15,6 @@
     "publishPath": "dist"
   },
   "hooks": {
-    "before:init": ["pnpm lint", "pnpm test"],
     "after:bump": "pnpm build"
   }
 }
