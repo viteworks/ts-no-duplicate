@@ -101,7 +101,8 @@ describe('CLI Integration Tests', () => {
           `pnpm exec tsx src/index.ts --format json --include-internal --include "${testFixturesPath}/*.ts"`,
           { encoding: 'utf-8', cwd: process.cwd() },
         )
-      } catch (error: any) {
+      }
+      catch (error: any) {
         // 命令可能因为发现重复而失败，但输出仍然有效
         result = error.stdout
       }

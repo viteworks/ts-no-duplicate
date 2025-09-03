@@ -92,7 +92,8 @@ describe('DuplicateDetector Rules', () => {
       reportWithDuplicates.duplicates.forEach((duplicate) => {
         expect(duplicate.locations.length).toBeLessThanOrEqual(1)
       })
-    } else {
+    }
+    else {
       // 如果没有重复，则测试通过
       expect(true).toBe(true)
     }

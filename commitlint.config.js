@@ -20,7 +20,8 @@ export default {
         'deps',     // 依赖更新
         'patch',    // 补丁版本 (0.0.x)
         'minor',    // 次要版本 (0.x.0)
-        'major'     // 主要版本 (x.0.0)
+        'major',    // 主要版本 (x.0.0)
+        'release'   // 发布版本 用于ci发布完成后自动commit
       ]
     ],
     'subject-case': [0], // 不限制subject的大小写
