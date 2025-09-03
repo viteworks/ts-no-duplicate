@@ -15,33 +15,33 @@
 
 ```bash
 # 全局安装
-pnpm install -g ts-duplicate-detector
+pnpm install -g @viteworks/ts-no-duplicate
 
 # 项目内安装
-pnpm install --save-dev ts-duplicate-detector
+pnpm install --save-dev @viteworks/ts-no-duplicate
 ```
 
 ## 🚀 快速开始
 
 ```bash
 # 基本使用
-ts-duplicate-detector
+ts-no-duplicate
 
 # 指定配置文件
-ts-duplicate-detector --load-config .ts-duplicate-detector.json
+ts-no-duplicate --load-config .ts-no-duplicate.json
 
 # 输出为 JSON 格式
-ts-duplicate-detector --format json
+ts-no-duplicate --format json
 
 # 保存报告到文件
-ts-duplicate-detector --format markdown --output report.md
+ts-no-duplicate --format markdown --output report.md
 ```
 
 ## ⚙️ 配置
 
 ### 配置文件
 
-在项目根目录创建 `.ts-duplicate-detector.json`：
+在项目根目录创建 `.ts-no-duplicate.json`：
 
 ```json
 {
@@ -104,7 +104,7 @@ ts-duplicate-detector --format markdown --output report.md
 ## 🎯 命令行选项
 
 ```bash
-ts-duplicate-detector [options]
+ts-no-duplicate [options]
 
 Options:
   -c, --config <path>           TypeScript 配置文件路径 (default: "./tsconfig.json")
@@ -206,7 +206,7 @@ Options:
 在大型项目重构时，检测重复命名避免冲突：
 
 ```bash
-ts-duplicate-detector --include "src/**/*.ts" --exclude "**/*.test.ts"
+ts-no-duplicate --include "src/**/*.ts" --exclude "**/*.test.ts"
 ````
 
 ### 2. 代码审查
@@ -215,7 +215,7 @@ ts-duplicate-detector --include "src/**/*.ts" --exclude "**/*.test.ts"
 
 ```bash
 # 如果发现重复命名，退出码为 1
-ts-duplicate-detector --format json > duplicates.json
+ts-no-duplicate --format json > duplicates.json
 ```
 
 ### 3. 团队规范
@@ -250,20 +250,20 @@ ts-duplicate-detector --format json > duplicates.json
 
 ```bash
 # 只检测函数重复
-ts-duplicate-detector --ignore-types class,interface,type
+ts-no-duplicate --ignore-types class,interface,type
 
 # 忽略测试文件
-ts-duplicate-detector --exclude "**/*.test.ts" "**/*.spec.ts"
+ts-no-duplicate --exclude "**/*.test.ts" "**/*.spec.ts"
 ```
 
 ### 生成报告
 
 ```bash
 # 生成 Markdown 报告
-ts-duplicate-detector --format markdown --output duplicate-report.md
+ts-no-duplicate --format markdown --output duplicate-report.md
 
 # 生成 JSON 数据用于后续处理
-ts-duplicate-detector --format json --output duplicates.json
+ts-no-duplicate --format json --output duplicates.json
 ```
 
 ## 🤝 贡献
@@ -273,8 +273,6 @@ ts-duplicate-detector --format json --output duplicates.json
 ### 开发环境
 
 ```bash
-# 克隆项目
-git clone https://github.com/your-username/ts-duplicate-detector.git
 
 # 安装依赖
 pnpm install

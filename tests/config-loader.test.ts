@@ -61,14 +61,14 @@ describe('ConfigLoader', () => {
       includeInternal: true
     };
 
-    writeFileSync('.ts-duplicate-detector.json', JSON.stringify(testConfig));
+    writeFileSync('.ts-no-duplicate.json', JSON.stringify(testConfig));
     
     const config = await ConfigLoader.load();
     
     expect(config.includeInternal).toBe(true);
     
     // 清理
-    unlinkSync('.ts-duplicate-detector.json');
+    unlinkSync('.ts-no-duplicate.json');
   });
 
   it('应该合并用户配置和默认配置', async () => {

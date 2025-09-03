@@ -1,5 +1,5 @@
 {
-  "name": "ts-no-duplicate",
+  "name": "@viteworks/ts-no-duplicate",
   "version": "0.0.1",
   "description": "TypeScript cross-file duplicate name detection tool",
   "main": "dist/index.js",
@@ -43,6 +43,7 @@
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@eslint/js": "^9.34.0",
+    "@stylistic/eslint-plugin": "^5.3.1",
     "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
