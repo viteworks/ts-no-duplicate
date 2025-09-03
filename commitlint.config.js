@@ -25,6 +25,7 @@ export default {
     ],
     'subject-case': [0], // 不限制subject的大小写
     'subject-max-length': [2, 'always', 100],
-    'body-max-length': [2, 'always', 200]
+    // body 每行最大长度
+    'body-max-line-length': [2, 'always', 200],
   }
 }
