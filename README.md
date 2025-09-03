@@ -28,7 +28,7 @@ pnpm install --save-dev @viteworks/ts-no-duplicate
 ts-no-duplicate
 
 # 指定配置文件
-ts-no-duplicate --load-config .ts-no-duplicate.json
+ts-no-duplicate --load-config ts-no-duplicate.ts
 
 # 输出为 JSON 格式
 ts-no-duplicate --format json
@@ -41,29 +41,35 @@ ts-no-duplicate --format markdown --output report.md
 
 ### 配置文件
 
-在项目根目录创建 `.ts-no-duplicate.json`：
+在项目根目录创建 `ts-no-duplicate.ts`：
 
-```json
-{
-  "tsConfigPath": "./tsconfig.json",
-  "includeInternal": false,
-  "excludePatterns": [
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/*.d.ts",
-    "**/node_modules/**",
-    "**/dist/**"
+```typescript
+import type { DetectorOptions } from '@viteworks/ts-no-duplicate'
+
+const config: DetectorOptions = {
+  tsConfigPath: './tsconfig.json',
+  includeInternal: false,
+  excludePatterns: [
+    '**/*.test.ts',
+    '**/*.spec.ts',
+    '**/*.d.ts',
+    '**/node_modules/**',
+    '**/dist/**',
   ],
-  "includePatterns": ["**/*.ts", "**/*.tsx"],
-  "ignoreTypes": [],
-  "ignoreNames": ["index", "default"],
-  "rules": {
-    "allowSameFileOverloads": true,
-    "allowCrossModuleDuplicates": false,
-    "maxDuplicatesPerName": 2
-  }
+  includePatterns: ['**/*.ts', '**/*.tsx'],
+  ignoreTypes: [],
+  ignoreNames: ['index', 'default'],
+  rules: {
+    allowSameFileOverloads: true,
+    allowCrossModuleDuplicates: false,
+    maxDuplicatesPerName: 2,
+  },
 }
+
+export default config
 ```
+
+
 
 ### 配置选项说明
 

@@ -1,7 +1,7 @@
 import js from '@eslint/js'
+import stylistic from '@stylistic/eslint-plugin'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import stylistic from '@stylistic/eslint-plugin'
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -18,6 +18,7 @@ export default tseslint.config(
     rules: {
       ...stylistic.configs.recommended.rules,
       '@typescript-eslint/no-explicit-any': 'off',
+      '@stylistic/no-multiple-empty-lines': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {

@@ -1,6 +1,12 @@
 import { defineConfig } from 'vitest/config'
+import { resolve } from 'path'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
   test: {
     testTimeout: 15000, // 增加测试超时时间到 15 秒
     coverage: {
@@ -8,21 +14,22 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       include: ['src/**'],
       exclude: [
+        'tests/**/*',
         'node_modules/**',
         'dist/**',
         'tests/**',
         '**/*.d.ts',
         '**/*.config.*',
-        'coverage/**'
+        'coverage/**',
       ],
       thresholds: {
         global: {
           branches: 80,
           functions: 80,
           lines: 80,
-          statements: 80
-        }
-      }
-    }
-  }
+          statements: 80,
+        },
+      },
+    },
+  },
 })
