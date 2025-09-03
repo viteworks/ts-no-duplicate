@@ -30,6 +30,6 @@
   "hooks": {
     "after:git:release": "echo Successfully created git tag v${version}",
     "after:bump": "pnpm build",
-    "after:release": "🎉 echo Successfully released v${version} to npm."
+    "after:release": "echo Successfully released v${version} to npm."
   }
 }
