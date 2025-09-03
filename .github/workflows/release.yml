@@ -77,9 +77,8 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           pnpm release-it ${{ needs.pre-check.outputs.version_type }} --ci 
