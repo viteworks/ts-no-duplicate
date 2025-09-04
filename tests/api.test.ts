@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { describe, expect, it } from 'vitest'
 import { duplicateDetectorApi } from '../src/lib/api'
+import fs from 'fs'
 
 describe('Duplicate Detector API', () => {
   const testFixturesPath = resolve(__dirname, 'fixtures')
@@ -133,25 +134,57 @@ describe('Duplicate Detector API', () => {
 
   describe('detectWithConfig()', () => {
     it('应该能够从配置文件加载选项', async () => {
-      // 这里可以测试配置文件加载功能
-      const report = await duplicateDetectorApi.detectWithConfig(undefined, {
-        includePatterns: [`${testFixturesPath}/duplicate-functions*.ts`],
-      })
+      // 创建临时配置文件
+      const tempConfigPath = 'temp-test-config-api.ts'
 
-      expect(report.duplicates).toBeDefined()
+      try {
+        // 写入临时配置文件
+        fs.writeFileSync(tempConfigPath, `
+export default {
+  includePatterns: ["${testFixturesPath}/duplicate-functions*.ts"],
+  excludePatterns: []
+}
+`)
+
+        const report = await duplicateDetectorApi.detectWithConfig(tempConfigPath)
+        expect(report.duplicates).toBeDefined()
+      }
+      finally {
+        // 清理临时配置文件
+        if (fs.existsSync(tempConfigPath)) {
+          fs.unlinkSync(tempConfigPath)
+        }
+      }
     })
 
-    it('应该支持选项覆盖', async () => {
-      const report = await duplicateDetectorApi.detectWithConfig(undefined, {
-        includePatterns: [`${testFixturesPath}/duplicate-functions*.ts`],
-        ignoreTypes: ['function'],
-      })
+    it('应该使用配置文件中的忽略类型选项', async () => {
+      // 创建临时配置文件
+      const tempConfigPath = 'temp-test-config-ignore.ts'
 
-      const functionDuplicates = report.duplicates.filter(
-        (dup: any) => dup.type === 'function',
-      )
+      try {
+        // 写入临时配置文件，包含ignoreTypes选项
+        fs.writeFileSync(tempConfigPath, `
+export default {
+  includePatterns: ["${testFixturesPath}/duplicate-functions*.ts"],
+  excludePatterns: [],
+  ignoreTypes: ['function']
+}
+`)
 
-      expect(functionDuplicates).toHaveLength(0)
+        const report = await duplicateDetectorApi.detectWithConfig(tempConfigPath)
+
+        const functionDuplicates = report.duplicates.filter(
+          (dup: any) => dup.type === 'function',
+        )
+
+        expect(functionDuplicates).toHaveLength(0)
+      }
+      finally {
+        // 清理临时配置文件
+        if (fs.existsSync(tempConfigPath)) {
+          fs.unlinkSync(tempConfigPath)
+        }
+      }
     })
   })
 

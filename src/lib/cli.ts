@@ -63,9 +63,6 @@ export async function executeCliCommand(options: CliOptions): Promise<void> {
       Logger.info('启动 TypeScript 重复命名检测...\n')
     }
 
-    // 不再支持命令行参数覆盖，只能通过配置文件
-    const overrides: any = {}
-
     // 在JSON模式下，临时禁用所有日志输出
     const isJsonMode = options.format === 'json'
     let originalConsoleLog = console.log
@@ -80,7 +77,7 @@ export async function executeCliCommand(options: CliOptions): Promise<void> {
 
     try {
       // 执行检测
-      const report = await duplicateDetectorApi.detectWithConfig(options.config, overrides)
+      const report = await duplicateDetectorApi.detectWithConfig(options.config)
 
       // 恢复console输出
       if (isJsonMode) {

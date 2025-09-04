@@ -18,10 +18,9 @@ export interface DuplicateDetectorApi {
   /**
    * 从配置文件加载选项并检测
    * @param configPath 配置文件路径
-   * @param overrides 覆盖选项
    * @returns 检测报告
    */
-  detectWithConfig(configPath?: string, overrides?: Partial<DetectorOptions>): Promise<DuplicateReport>
+  detectWithConfig(configPath?: string): Promise<DuplicateReport>
 
   /**
    * 格式化报告
@@ -42,18 +41,8 @@ export function createDuplicateDetectorApi(): DuplicateDetectorApi {
       return await detector.detect()
     },
 
-    async detectWithConfig(configPath?: string, overrides: Partial<DetectorOptions> = {}): Promise<DuplicateReport> {
-      const config = await ConfigLoader.load(configPath)
-
-      const detectorOptions: DetectorOptions = {
-        tsConfigPath: config.tsConfigPath,
-        includeInternal: config.includeInternal,
-        excludePatterns: config.excludePatterns,
-        includePatterns: config.includePatterns,
-        ignoreTypes: config.ignoreTypes,
-        ...overrides, // 覆盖选项优先级更高
-      }
-
+    async detectWithConfig(configPath?: string): Promise<DuplicateReport> {
+      const detectorOptions = await ConfigLoader.load(configPath)
       const detector = new DuplicateDetector(detectorOptions)
       return await detector.detect()
     },
