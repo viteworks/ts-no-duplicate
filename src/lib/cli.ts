@@ -27,10 +27,6 @@ export interface CliOptions {
   config?: string
   format: 'console' | 'json' | 'markdown'
   output?: string
-  include?: string[]
-  exclude?: string[]
-  ignoreTypes?: string[]
-  includeInternal?: boolean
 }
 
 /**
@@ -45,10 +41,6 @@ export function parseCliArgs(): CliOptions {
     .option('-c, --config <path>', '加载配置文件路径')
     .option('-f, --format <format>', '输出格式 (console|json|markdown)', 'console')
     .option('--output <file>', '输出到文件')
-    .option('--include <patterns...>', '包含文件模式')
-    .option('--exclude <patterns...>', '排除文件模式')
-    .option('--ignore-types <types...>', '忽略的声明类型')
-    .option('--include-internal', '包含内部声明')
 
   program.parse()
 
@@ -57,10 +49,6 @@ export function parseCliArgs(): CliOptions {
     config: options.config,
     format: options.format || 'console',
     output: options.output,
-    include: options.include,
-    exclude: options.exclude,
-    ignoreTypes: options.ignoreTypes,
-    includeInternal: options.includeInternal,
   }
 }
 
@@ -75,12 +63,8 @@ export async function executeCliCommand(options: CliOptions): Promise<void> {
       Logger.info('启动 TypeScript 重复命名检测...\n')
     }
 
-    // 构建检测选项覆盖
+    // 不再支持命令行参数覆盖，只能通过配置文件
     const overrides: any = {}
-    if (options.include) overrides.includePatterns = options.include
-    if (options.exclude) overrides.excludePatterns = options.exclude
-    if (options.ignoreTypes) overrides.ignoreTypes = options.ignoreTypes
-    if (options.includeInternal !== undefined) overrides.includeInternal = options.includeInternal
 
     // 在JSON模式下，临时禁用所有日志输出
     const isJsonMode = options.format === 'json'

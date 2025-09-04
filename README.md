@@ -28,7 +28,7 @@ pnpm install --save-dev @viteworks/ts-no-duplicate
 ts-no-duplicate
 
 # 指定配置文件
-ts-no-duplicate --load-config ts-no-duplicate.ts
+ts-no-duplicate --config ts-no-duplicate.ts
 
 # 输出为 JSON 格式
 ts-no-duplicate --format json
@@ -113,17 +113,14 @@ export default config
 ts-no-duplicate [options]
 
 Options:
-  -c, --config <path>           TypeScript 配置文件路径 (default: "./tsconfig.json")
+  -c, --config <path>           配置文件路径
   -f, --format <format>         输出格式 (console|json|markdown) (default: "console")
-  --include-internal            包含内部（非导出）声明 (default: false)
-  --exclude <patterns...>       排除文件模式 (default: ["**/*.test.ts","**/*.spec.ts"])
-  --include <patterns...>       包含文件模式 (default: ["**/*.ts","**/*.tsx"])
-  --ignore-types <types...>     忽略的声明类型 (default: [])
   --output <file>               输出到文件
-  --load-config <path>          加载配置文件
   -h, --help                    显示帮助信息
   -V, --version                 显示版本号
 ```
+
+> 注意：所有检测相关的配置选项（如包含/排除模式、忽略类型等）只能通过配置文件设置，不再支持命令行参数。
 
 ## 📊 输出格式
 
@@ -209,10 +206,20 @@ Options:
 
 ### 1. 代码重构
 
-在大型项目重构时，检测重复命名避免冲突：
+在大型项目重构时，创建配置文件来检测重复命名避免冲突：
+
+```typescript
+// ts-no-duplicate.ts
+export default {
+  includePatterns: ["src/**/*.ts"],
+  excludePatterns: ["**/*.test.ts"]
+}
+```
+
+然后运行:
 
 ```bash
-ts-no-duplicate --include "src/**/*.ts" --exclude "**/*.test.ts"
+ts-no-duplicate --config ts-no-duplicate.ts
 ````
 
 ### 2. 代码审查
@@ -254,12 +261,17 @@ ts-no-duplicate --format json > duplicates.json
 
 ### 特定类型检测
 
-```bash
-# 只检测函数重复
-ts-no-duplicate --ignore-types class,interface,type
+在配置文件中设置：
 
-# 忽略测试文件
-ts-no-duplicate --exclude "**/*.test.ts" "**/*.spec.ts"
+```typescript
+// ts-no-duplicate.ts
+export default {
+  // 只检测函数重复，忽略其他类型
+  ignoreTypes: ['class', 'interface', 'type', 'variable', 'enum', 'namespace'],
+
+  // 忽略测试文件
+  excludePatterns: ['**/*.test.ts', '**/*.spec.ts']
+}
 ```
 
 ### 生成报告
